@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     container: {
         paddingLeft: 20,
         marginTop: 20,
+        marginBottom: 10,
     },
     title: {
         fontSize: 26,
