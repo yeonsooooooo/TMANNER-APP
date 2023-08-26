@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Image, Text, StyleSheet, navigation } from 'react-native';
 
-function Header({ navigation, title }) {
+function Header({ navigation, title, targetScreen }) {
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigation.navigate('Main')}> 
+            <TouchableOpacity onPress={() => navigation.navigate(targetScreen || 'Main')}> 
                 <Image source={require('../assets/source/BackBtn.png')} />
             </TouchableOpacity>
             <Text style={styles.title}>{title}</Text>

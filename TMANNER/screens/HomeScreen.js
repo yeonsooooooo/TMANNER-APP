@@ -1,6 +1,5 @@
 import React from "react";
-import { 
-    StyleSheet, View, TouchableWithoutFeedback, Image } from "react-native";
+import { StyleSheet, View, TouchableWithoutFeedback, Image } from "react-native";
 
 function HomeScreen({ navigation }) {
     const navigateToDetails = () => {

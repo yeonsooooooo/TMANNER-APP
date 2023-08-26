@@ -12,47 +12,49 @@ function DynamicScreenWrapper(tabBarImageSource, detailPageRoute) {
   }
 
 
-function DynamicScreen({ route, tabBarImageSource, navigation, detailPageRoute }) {
+  function DynamicScreen({ route, tabBarImageSource, navigation, detailPageRoute }) {
     return (
-        <View style={{ flex: 1, padding: 20 }}>
-            <Text style={styles.categoryTitle}>{route.name}</Text>
-            <View style={styles.categorySeparator} />
-            {route.params.content.map(menuItem => {
-            if (detailPageRoute === 'None') {
-                return (
-                    <View key={menuItem.menuName} style={styles.menuContainer}>
-                        <Image source={menuItem.image} style={{ width: 100, height: 100 }} />
-                        <View style={styles.menuRightContainer}>
-                            <View style={styles.menuTextContainer}>
-                                <Text style={styles.menuName}>{menuItem.menuName}</Text>
-                                <Text style={styles.menuPrice}>{menuItem.price}</Text>
+        <ScrollView style={{ flex: 1 }}>
+            <View style={{ padding: 20 }}>
+                <Text style={styles.categoryTitle}>{route.name}</Text>
+                <View style={styles.categorySeparator} />
+                {route.params.content.map(menuItem => {
+                    if (detailPageRoute === 'None') {
+                        return (
+                            <View key={menuItem.menuName} style={styles.menuContainer}>
+                                <Image source={menuItem.image} style={{ width: 100, height: 100 }} />
+                                <View style={styles.menuRightContainer}>
+                                    <View style={styles.menuTextContainer}>
+                                        <Text style={styles.menuName}>{menuItem.menuName}</Text>
+                                        <Text style={styles.menuPrice}>{menuItem.price}</Text>
+                                    </View>
+                                    <Image source={tabBarImageSource} style={{ width: 22, height: 22}} />
+                                </View>    
                             </View>
-                            <Image source={tabBarImageSource} style={{ width: 22, height: 22}} />
-                        </View>    
-                    </View>
-                );
-            }
+                        );
+                    }
 
-            return (
-                <TouchableOpacity
-                    key={menuItem.menuName}
-                    onPress={() => navigation.navigate(detailPageRoute, { productId: menuItem.productId })}
-                >
-                    <View style={styles.menuContainer}>
-                        <Image source={menuItem.image} style={{ width: 100, height: 100 }} />
-                        <View style={styles.menuTextContainer}>
-                            <Text style={styles.menuName}>{menuItem.menuName}</Text>
-                            <Text style={styles.menuPrice}>{menuItem.price}</Text>
-                        </View>
-                        <Image source={tabBarImageSource} style={{ width: 22, height: 22 }} />
-                    </View>
-                </TouchableOpacity>
-            );
-        })}
-
-        </View>
+                    return (
+                        <TouchableOpacity
+                            key={menuItem.menuName}
+                            onPress={() => navigation.navigate(detailPageRoute, { productId: menuItem.productId })}
+                        >
+                            <View style={styles.menuContainer}>
+                                <Image source={menuItem.image} style={{ width: 100, height: 100 }} />
+                                <View style={styles.menuTextContainer}>
+                                    <Text style={styles.menuName}>{menuItem.menuName}</Text>
+                                    <Text style={styles.menuPrice}>{menuItem.price}</Text>
+                                </View>
+                                <Image source={tabBarImageSource} style={{ width: 22, height: 22 }} />
+                            </View>
+                        </TouchableOpacity>
+                    );
+                })}
+            </View>
+        </ScrollView>
     );
 }
+
 
 function TabNavigator({ categories, tabBarImageSource, detailPageRoute = 'DetailMenuEdit' }) {
   return (
