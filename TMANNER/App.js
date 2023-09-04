@@ -14,10 +14,10 @@ import MenuEditScreen from './screens/MenuEditScreen';
 import TestScreen from './screens/TestScreen';
 import BackupScreen from './screens/BackupScreen';
 import DetailMenuEditScreen from './screens/DetailMenuEditScreen';
+import SignupScreen from './screens/SignupScreen';
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreLogs(['Sending `onAnimatedValueUpdate` with no listeners registered.']);
-
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
         <Stack.Screen name="Home" component={HomeScreen}/>
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="Main" component={MainScreen}/>
         <Stack.Screen name="SoldOut" component={SoldOutScreen}/>
         <Stack.Screen name="MenuEdit" component={MenuEditScreen}/>
