@@ -6,11 +6,12 @@ import Header from "../components/Header";
 
 function UserVerificationScreen({navigation}) {
     //입력값 여부 확인
-    const [inputValue, setInputValue] = useState('');
-    const isInputValid = inputValue.length === 11;
-    const [isVerified, setIsVerified] = useState('');
+    const [inputValue, setInputValue] = useState(''); //전화번호 INPUT BOX
+    const [isVerified, setIsVerified] = useState(''); //인증번호 INPUT BOX
+    const [showBottom, setShowBottom] = useState(false); //입력 완료 버튼 활성화 여부
+
+    const isInputValid = inputValue.length === 11; //전화번호 11자리
     const isVerifiedValid = isVerified.length === 4; //인증번호 4자리
-    const [showButton, setshowButton] = useState(false);//인증번호 클릭시 버튼 활성화
 
     return (
         <SafeAreaView style={styles.safeAreaContainer}>
@@ -44,24 +45,36 @@ function UserVerificationScreen({navigation}) {
                         isInputValid ? styles.ActiveVerifyButton : styles.InactiveVerifyButton,
                         ]}
                         disabled={!isInputValid}
-                        onClick={() => setIsVerified(true)}
+                        onPress={() => setShowBottom(true)}
                     >
                         <Text style={styles.VerifyButtonText}>인증하기</Text>
                     </TouchableOpacity>
                 </View>
 
-                {/* 하단 인증번호 입력 창 */}
-                <View style={styles.InputWrapper}>
-                    <TextInput
-                        style={styles.InputField}
-                        placeholder={'인증번호 입력'}
-                        onChangeText={text => setshowButton(true)}
-                    />
-                </View>
+                {showBottom && (
+                    //인증번호 입력창
+                    <View style={styles.BottomContainer}>
+                        <View style={styles.InputWrapper}>
+                            <TextInput
+                                style={styles.InputField}
+                                placeholder={'인증번호 입력'}
+                                onChangeText={text => setIsVerified(text)}  // 변경된 부분
+                            />
+                        </View>
+                        <TouchableOpacity
+                            style={[
+                                styles.CompleteButton,
+                                isVerifiedValid ? styles.EnabledButton : styles.DisabledButton,
+                            ]}
+                            disabled={!isVerifiedValid}
+                            onPress={() => navigation.navigate({ name: 'SignupID' })}
+                        >
+                            <Text style={styles.ButtonText}>입력 완료</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
                 
             </View>
-
-
         </SafeAreaView>
     );
 }
@@ -176,6 +189,14 @@ const styles = StyleSheet.create({
       VerifyButtonText: {
         color: '#FFFFFF',
       },
+      DisabledButton: {
+        backgroundColor: '#D1D1D1',
+      },
+      EnabledButton: {
+        backgroundColor: '#000',
+      },BottomContainer:{
+        width: '100%',
+      }
 });
 
 export default UserVerificationScreen;
