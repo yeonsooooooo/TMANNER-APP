@@ -16,6 +16,8 @@ import BackupScreen from './screens/BackupScreen';
 import DetailMenuEditScreen from './screens/DetailMenuEditScreen';
 import SignupIDScreen from './screens/SignupIDScreen';
 import SignupPWScreen from './screens/SignupPWScreen';
+import SignupPWConfirmScreen from './screens/SignupPWConfirmScreen';
+import UserVerificationScreen from './screens/UserVerificationScreen';
 
 const Stack = createNativeStackNavigator();
 LogBox.ignoreLogs(['Sending `onAnimatedValueUpdate` with no listeners registered.']);
@@ -30,6 +32,8 @@ function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignupID" component={SignupIDScreen} />
         <Stack.Screen name="SignupPW" component={SignupPWScreen} />
+        <Stack.Screen name="SignupPWConfirm" component={SignupPWConfirmScreen} />
+        <Stack.Screen name="UserVerification" component={UserVerificationScreen} />
         <Stack.Screen name="Main" component={MainScreen}/>
         <Stack.Screen name="SoldOut" component={SoldOutScreen}/>
         <Stack.Screen name="MenuEdit" component={MenuEditScreen}/>
