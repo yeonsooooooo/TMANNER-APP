@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, View, Text, TextInput, TouchableOpacity} from 'react-native';
+import { StyleSheet, SafeAreaView} from 'react-native';
 
 import Header from "../components/Header";
 import FormInput from '../components/FormInput';
 
-function SignupScreen({navigation}) {
+function SignupPWScreen({navigation}) {
 
     return (
         <SafeAreaView style={styles.safeAreaContainer}>
@@ -15,11 +15,12 @@ function SignupScreen({navigation}) {
 
             <FormInput 
                 navigation={navigation}
-                GuideText="로그인에 사용할\n아이디를 입력해주세요"
+                GuideText="로그인에 사용할\n비밀번호를 입력해주세요"
                 step="1"
-                placeholder="아이디"
+                placeholder="비밀번호"
                 buttonText="입력 완료"
-                TargetScreen={'Signup'}
+                TargetScreen={'Test'}
+                isSecure={true}
             />
         </SafeAreaView>
     );
@@ -32,4 +33,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SignupScreen;
+export default SignupPWScreen;

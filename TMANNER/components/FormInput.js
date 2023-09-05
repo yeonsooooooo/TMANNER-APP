@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import { View, TouchableOpacity, Image, Text, TextInput, StyleSheet, navigation } from 'react-native';
+import { View, TouchableOpacity, Text, TextInput, StyleSheet, navigation, isSecure } from 'react-native';
 
 //입력 받을 값 : GuideText, placeholder, step, buttonText, navigation
 
-function FormInput({ navigation, GuideText, step, placeholder, buttonText, TargetScreen}) {
+function FormInput({ navigation, GuideText, step, placeholder, buttonText, TargetScreen, isSecure=false}) {
     //입력 값, 일종의 유효성 검사 느낌
 
     const [inputValue, setInputValue] = useState('');
@@ -25,6 +25,7 @@ function FormInput({ navigation, GuideText, step, placeholder, buttonText, Targe
             <TextInput 
                 style={styles.InputField} 
                 placeholder={placeholder}
+                secureTextEntry={isSecure} // Here
                 onChangeText={text => setInputValue(text)} // Update state when text changes
             />
             <TouchableOpacity 
@@ -32,7 +33,7 @@ function FormInput({ navigation, GuideText, step, placeholder, buttonText, Targe
                     styles.CompleteButton,  
                     isInputEmpty ? styles.DisabledButton : styles.EnabledButton
                 ]}
-                onPress={() => navigation.navigate({TargetScreen})}
+                onPress={() => navigation.navigate({ name: TargetScreen })}
                 >
                 <Text style={styles.ButtonText}>{buttonText}</Text>
             </TouchableOpacity>
