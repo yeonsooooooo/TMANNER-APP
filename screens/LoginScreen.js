@@ -2,14 +2,60 @@ import React, { useState } from "react";
 import { Button, View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from'react-redux';
+import { setToken} from '../redux/slices/loginSlice';
+import axios from 'axios';
+
+import md5 from 'md5';
 
 const LoginScreen = () => {
+    const dispatch = useDispatch();
+    //const token = useSelector(selectToken);
+    
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isChecked, setChecked] = useState(false);
 
     const navigation = useNavigation();
+    
+    const convertToMd5 = (password) => {
+        return md5(password); // 비밀번호 해시를 반환합니다.
+    };
 
+    const sendLogin = async (hashedPassword) => {
+        try {
+            const response = await axios.post(
+                'http://223.130.137.39:3030/api/biz/user',
+                {
+                    email: email,
+                    password: hashedPassword,    
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            console.log(response.data);
+            return response; // 응답을 반환합니다.
+        } catch (error) {
+            console.error("hihi", error.response);
+        }
+    };
+
+    const handleLogin = async () => {
+        try {
+            const hashedPassword = convertToMd5(password);
+            const response = await sendLogin(hashedPassword);
+            const authToken = response.data.access_token;
+            console.log(response.data.access_token);
+            dispatch(setToken(authToken));
+            navigation.navigate('Main');
+        } catch (error) {
+          console.error("hihi2", error);
+        }
+    };
+    
     return (
         <View style={styles.container}>
             <View style={styles.inputcontainer}>
@@ -23,7 +69,6 @@ const LoginScreen = () => {
                     keyboardType="email-address"
                     autoCapitalize="none"
                 />
-
                 <TextInput
                     style={styles.input}
                     placeholder="비밀번호"
@@ -56,8 +101,10 @@ const LoginScreen = () => {
                         </TouchableOpacity>
                     </View>
 
-                <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Main')}>
-                    <Text style={styles.loginButtonText}>로그인하기</Text>
+                <TouchableOpacity 
+                    style={styles.loginButton}
+                    onPress={handleLogin}>
+                        <Text style={styles.loginButtonText}>로그인하기</Text>
                 </TouchableOpacity>
 
                 <View style={styles.signUpContainer}>
